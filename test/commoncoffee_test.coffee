@@ -3,29 +3,13 @@
 grunt = require('grunt')
 expect = (require 'chai').expect
 
-describe "bla", ->
-  it "should be bla", ->
-    expect(1).to.equal(2)
+describe "commoncoffee task", ->
 
-#
-# ======== A Handy Little Nodeunit Reference ========
-# https://github.com/caolan/nodeunit
-#
-# Test methods:
-#   test.expect(numAssertions)
-#   test.done()
-# Test assertions:
-#   test.ok(value, [message])
-#   test.equal(actual, expected, [message])
-#   test.notEqual(actual, expected, [message])
-#   test.deepEqual(actual, expected, [message])
-#   test.notDeepEqual(actual, expected, [message])
-#   test.strictEqual(actual, expected, [message])
-#   test.notStrictEqual(actual, expected, [message])
-#   test.throws(block, [error], [message])
-#   test.doesNotThrow(block, [error], [message])
-#   test.ifError(value)
-#
+  describe "scenario1", ->
+    it "should compile the coffeescripts into a single javascript file", ->
+      actual = grunt.file.read('tmp/scenario1.js')
+      expected = grunt.file.read('test/expected/scenario1.js')
+      expect(actual).to.equal(expected)
 
 #exports.commoncoffee =
   #setUp: (done) ->
@@ -51,3 +35,4 @@ describe "bla", ->
       #'should describe what the custom option(s) behavior is.')
 
     #test.done()
+    

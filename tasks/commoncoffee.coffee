@@ -1,30 +1,34 @@
-# 
 # grunt-commoncoffee
 # https://github.com/elentok/grunt-commoncoffee
-# 
 # Copyright (c) 2013 David Elentok
 # Licensed under the MIT license.
-# 
 
 'use strict'
 
+path = require 'path'
+compile = require '../lib/compile'
+helpers = require '../lib/helpers'
+
 module.exports = (grunt) ->
 
-  # Please see the grunt documentation for more information regarding task
-  # creation: https://github.com/gruntjs/grunt/blob/devel/docs/toc.md
 
-  grunt.registerMultiTask 'commoncoffee', 'Your task description goes here.', ->
+  grunt.registerMultiTask 'commoncoffee', 'Compiles and combines coffeescript files', ->
     # Merge task-specific and/or target-specific options with these defaults.
     options = @options({
-      punctuation: '.',
-      separator: ', '
+      separator: grunt.util.linefeed + grunt.util.linefeed,
+      root: '.'
     })
+
+    options.root = path.resolve(options.root)
+    console.log "====================="
+    console.log options.root
+    console.log "====================="
 
     # Iterate over all specified file groups.
     this.files.forEach (fileObj) ->
       # The source files to be concatenated. The "nonull" option is used
       # to retain invalid files/patterns so they can be warned about.
-      files = grunt.file.expand({nonull: true}, fileObj.src);
+      files = grunt.file.expand({nonull: true}, fileObj.src)
 
       # Concat specified files.
       src = files.map (filepath) ->
@@ -34,11 +38,14 @@ module.exports = (grunt) ->
           return ''
 
         # Read file source.
-        return grunt.file.read(filepath)
+        fullpath = path.resolve(filepath)
+        moduleName = helpers.getModuleName(fullpath, options.root)
+        compiled = compile(filepath)
+        wrapped = helpers.wrap(moduleName, compiled)
+        #s = grunt.file.read(filepath)
       .join(options.separator)
 
-      # Handle options.
-      src += options.punctuation
+      src += grunt.util.linefeed
 
       # Write the destination file.
       grunt.file.write(fileObj.dest, src)
