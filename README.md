@@ -28,64 +28,67 @@ If the plugin has been installed correctly, running `grunt --help` at the comman
 ### Overview
 In your project's Gruntfile, add a section named `commoncoffee` to the data object passed into `grunt.initConfig()`.
 
-```js
-grunt.initConfig({
-  commoncoffee: {
-    options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
-  },
-})
+```coffeescript
+grunt.initConfig
+  commoncoffee:
+    your_target:
+      options:
+        # Task-specific options go here.
+      files:
+        # Target-specific file lists and/or options go here.
 ```
 
 ### Options
 
-#### options.separator
-Type: `String`
-Default value: `',  '`
-
-A string value that is used to do something with whatever.
-
-#### options.punctuation
+#### options.root
 Type: `String`
 Default value: `'.'`
 
-A string value that is used to do something else with whatever else.
+The root of the module files.
+
+For example, by default, to load the file "src/files/file1.coffee" in the 
+browser you will run "`require 'src/files/file1'`".
+
+If you set `root` to `src/files` you can use "`require 'file1'`"
+
+#### options.runtime
+Type: `Boolean`
+Default value: `true`
+
+When true, add the require() method code at the beginning of each generated file.
+
+#### options.wrap
+Type: `Boolean`
+Default value: `true`
+
+When true, wraps each file in a "window.require.register(...)" block.
 
 ### Usage Examples
 
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+This is the way I use this plugin, the following configuration will generate two files:
 
-```js
-grunt.initConfig({
-  commoncoffee: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-})
-```
+* public/app.js - includes the require() method code and all of the compiled coffeescript files wrapped in modules.
+* public/vendor.js - the combined vendor javascripts (without the require method code and without wrapping).
 
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+```coffeescript
+grunt.initConfig
+  commoncoffee:
+    app:
+      options:
+        root: 'src'
+      files:
+        'public/app.js': ['src/**/*.coffee'],
 
-```js
-grunt.initConfig({
-  commoncoffee: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-})
+    vendor:
+      options:
+        wrap: false
+        runtime: false
+      files:
+        'public/vendor.js': [
+          'vendor/zepto/zepto.js',
+          'vendor/backbone/backbone.js'
+          'vendor/bootstrap/javascripts/*.js'
+        ]
 ```
 
 ## Contributing
