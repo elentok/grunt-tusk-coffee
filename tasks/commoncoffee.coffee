@@ -16,13 +16,12 @@ module.exports = (grunt) ->
     # Merge task-specific and/or target-specific options with these defaults.
     options = @options({
       separator: grunt.util.linefeed + grunt.util.linefeed,
-      root: '.'
+      root: '.',
+      runtime: true
+      wrap: true
     })
 
     options.root = path.resolve(options.root)
-    console.log "====================="
-    console.log options.root
-    console.log "====================="
 
     # Iterate over all specified file groups.
     this.files.forEach (fileObj) ->
@@ -40,11 +39,14 @@ module.exports = (grunt) ->
         # Read file source.
         fullpath = path.resolve(filepath)
         moduleName = helpers.getModuleName(fullpath, options.root)
-        compiled = compile(filepath)
-        wrapped = helpers.wrap(moduleName, compiled)
-        #s = grunt.file.read(filepath)
+        source = compile(filepath)
+        source = helpers.wrap(moduleName, source) if options.wrap
+        source
       .join(options.separator)
 
+      if options.runtime
+        runtime = compile('lib/require_runtime.coffee', bare: false)
+        src = runtime + grunt.util.linefeed + src
       src += grunt.util.linefeed
 
       # Write the destination file.
