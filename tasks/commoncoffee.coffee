@@ -45,7 +45,8 @@ module.exports = (grunt) ->
       .join(options.separator)
 
       if options.runtime
-        runtime = compile('lib/require_runtime.coffee', bare: false)
+        require_runtime_path = path.resolve(__dirname, '../lib/require_runtime.coffee')
+        runtime = compile(require_runtime_path, bare: false)
         src = runtime + grunt.util.linefeed + src
       src += grunt.util.linefeed
 
