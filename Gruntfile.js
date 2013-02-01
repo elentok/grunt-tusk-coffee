@@ -48,7 +48,12 @@ module.exports = function(grunt) {
     },
 
     simplemocha: {
-      all: ['test/**/*_test.coffee']
+      all: ['test/**/*_test.coffee'],
+      options: {
+        globals: ['window'],
+        reporter: 'spec',
+        ui: 'bdd'
+      }
     },
 
   });
