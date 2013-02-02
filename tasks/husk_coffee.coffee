@@ -1,5 +1,5 @@
-# grunt-commoncoffee
-# https://github.com/elentok/grunt-commoncoffee
+# grunt-husk-coffee
+# https://github.com/elentok/grunt-husk-coffee
 # Copyright (c) 2013 David Elentok
 # Licensed under the MIT license.
 
@@ -11,11 +11,11 @@ helpers = require '../lib/helpers'
 
 module.exports = (grunt) ->
   description = 'Compiles and combines coffeescript files'
-  grunt.registerMultiTask 'commoncoffee', description, ->
-    compiler = new CommonCompiler(grunt, @files, @options)
+  grunt.registerMultiTask 'husk_coffee', description, ->
+    compiler = new HuskCoffeeCompiler(grunt, @files, @options)
     compiler.compile()
 
-class CommonCompiler
+class HuskCoffeeCompiler
   constructor: (@grunt, @fileGroups, @options) ->
     console.log "CommonCompiler"
     @_addDefaultOptions()

@@ -1,6 +1,6 @@
 #
-# grunt-commoncoffee
-# https:#github.com/elentok/grunt-commoncoffee
+# grunt-husk-coffee
+# https:#github.com/elentok/grunt-husk-coffee
 #
 # Copyright (c) 2013 David Elentok
 # Licensed under the MIT license.
@@ -22,7 +22,7 @@ module.exports = (grunt) ->
       tests: ['tmp']
 
     # Configuration to be run (and then tested).
-    commoncoffee:
+    husk_coffee:
       scenario1:
         options:
           root: 'test'
@@ -70,7 +70,7 @@ module.exports = (grunt) ->
 
   # Whenever the "test" task is run, first clean the "tmp" dir, then run this
   # plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'commoncoffee', 'simplemocha'])
+  grunt.registerTask('test', ['clean', 'husk_coffee', 'simplemocha'])
 
   # By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test'])

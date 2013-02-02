@@ -4,7 +4,7 @@ grunt = require 'grunt'
 compile = require '../lib/compile'
 expect = (require 'chai').expect
 
-describe "commoncoffee task", ->
+describe "husk_coffee task", ->
 
   it "should pass scenario1", ->
     prefix = compile('lib/require_runtime.coffee', bare: false)
