@@ -5,6 +5,7 @@
 
 'use strict'
 
+fs = require 'fs'
 path = require 'path'
 compile = require '../lib/compile'
 helpers = require '../lib/helpers'
@@ -46,15 +47,14 @@ class HuskCoffeeCompiler
     @grunt.file.expand({nonull: true}, fileGroup.src)
 
   _compileSeparately: (files, dest) ->
-    filenames = []
+    fs.mkdirSync(dest) unless @grunt.file.isDir(dest)
     files.forEach (filepath) =>
       source = @_compileFile(filepath)
       sourceFilename = path.basename(filepath)
       outputFilename = sourceFilename.replace('.coffee', '.js')
       outputFilepath = path.join(dest, outputFilename)
       @grunt.file.write(outputFilepath, source)
-      filenames.push(sourceFilename)
-    @grunt.log.writeln("Files #{filenames.join(', ')} created.")
+      @grunt.log.writeln("File #{outputFilepath} created.")
 
 
   _compileAndJoin: (files, dest) ->
