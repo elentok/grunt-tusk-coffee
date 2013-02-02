@@ -19,7 +19,12 @@ describe "commoncoffee task", ->
     expect(actual).to.equal(expected)
 
   it "should pass scenario3", ->
-  it "should compile the coffeescripts into a single javascript file", ->
     expected = grunt.file.read('test/expected/scenario3.js')
     actual = grunt.file.read('tmp/scenario3.js')
     expect(actual).to.equal(expected)
+
+  #it "allows not joining files", ->
+    #file1 = grunt.file.read('tmp/scenario4/file1.js')
+    #file2 = grunt.file.read('tmp/scenario4/file2.js')
+    #expect(file1).to.equal "var x;\nx = 1;"
+    #expect(file2).to.equal "var y;\ny = 2;"
