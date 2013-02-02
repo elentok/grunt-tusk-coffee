@@ -1,8 +1,8 @@
 {
-  "name": "grunt-commoncoffee",
+  "name": "grunt-husk-coffee",
   "description": "Compiles coffee script into commonjs modules and joins them to a single file",
   "version": "0.0.1",
-  "homepage": "https://github.com/elentok/grunt-commoncoffee",
+  "homepage": "https://github.com/elentok/grunt-husk-coffee",
   "author": {
     "name": "David Elentok",
     "email": "3david@gmail.com",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/elentok/grunt-commoncoffee.git"
+    "url": "git://github.com/elentok/grunt-husk-coffee.git"
   },
   "bugs": {
-    "url": "https://github.com/elentok/grunt-commoncoffee/issues"
+    "url": "https://github.com/elentok/grunt-husk-coffee/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/elentok/grunt-commoncoffee/blob/master/LICENSE-MIT"
+      "url": "https://github.com/elentok/grunt-husk-coffee/blob/master/LICENSE-MIT"
     }
   ],
   "main": "Gruntfile.js",
