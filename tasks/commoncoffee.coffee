@@ -35,12 +35,27 @@ class CommonCompiler
 
   _compileFileGroup: (fileGroup) ->
     files = @_getSourceFiles(fileGroup)
-    @_compileAndJoin(files, fileGroup.dest)
+    if /\/$/.test(fileGroup.dest)
+      @_compileSeparately(files, fileGroup.dest)
+    else
+      @_compileAndJoin(files, fileGroup.dest)
 
   _getSourceFiles: (fileGroup) ->
     # The source files to be concatenated. The "nonull" option is used
     # to retain invalid files/patterns so they can be warned about.
     @grunt.file.expand({nonull: true}, fileGroup.src)
+
+  _compileSeparately: (files, dest) ->
+    filenames = []
+    files.forEach (filepath) =>
+      source = @_compileFile(filepath)
+      sourceFilename = path.basename(filepath)
+      outputFilename = sourceFilename.replace('.coffee', '.js')
+      outputFilepath = path.join(dest, outputFilename)
+      @grunt.file.write(outputFilepath, source)
+      filenames.push(sourceFilename)
+    @grunt.log.writeln("Files #{filenames.join(', ')} created.")
+
 
   _compileAndJoin: (files, dest) ->
     source = files.map (filepath) => @_compileFile(filepath)

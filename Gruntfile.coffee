@@ -44,6 +44,15 @@ module.exports = (grunt) ->
         files:
           'tmp/scenario3.js': ['test/fixtures/**/*.coffee']
 
+      scenario4: #don't join files
+        options:
+          root: 'test/fixtures'
+          join: false
+          runtime: false
+          wrap: false
+        files:
+          'tmp/scenario4/': ['test/fixtures/**/*.coffee']
+
     simplemocha:
       all: ['test/**/*_test.coffee']
       options:
