@@ -1,0 +1,2 @@
+#!/bin/bash
+tar czv --exclude='.git' --exclude='node_modules' -f ../grunt-commoncoffee.tgz .
