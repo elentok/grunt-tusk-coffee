@@ -4,11 +4,12 @@ grunt = require 'grunt'
 compile = require '../lib/compile'
 expect = (require 'chai').expect
 
-describe "husk_coffee task", ->
+describe "tusk_coffee task", ->
 
   it "should pass scenario1", ->
     prefix = compile('lib/require_runtime.coffee', bare: false)
-    expected = prefix + grunt.util.linefeed + grunt.file.read('test/expected/scenario1.js')
+    expected = prefix + grunt.util.linefeed +
+      grunt.file.read('test/expected/scenario1.js')
 
     actual = grunt.file.read('tmp/scenario1.js')
     expect(actual).to.equal(expected)
