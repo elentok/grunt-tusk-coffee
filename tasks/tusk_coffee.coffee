@@ -1,5 +1,5 @@
-# tusk-coffee
-# https://github.com/elentok/tusk-coffee
+# grunt-tusk-coffee
+# https://github.com/elentok/grunt-tusk-coffee
 # Copyright (c) 2013 David Elentok
 # Licensed under the MIT license.
 
