@@ -1,15 +1,20 @@
 unless window.require?
   initializeModule = (module) ->
     try
+      module.state = 'initializing'
       module.initializer(r, module)
-      module.initialized = true
+      module.state = 'initialized'
     catch error
       throw new r.ModuleInitializerException(module.name, error)
 
   r = window.require = (moduleName) ->
     module = r.cache[moduleName]
     if module?
-      initializeModule(module) unless module.initialized
+      if module.state is 'initializing'
+        throw new r.ModuleInitializerException(module.name,
+          "Circular reference")
+      else if module.state is 'registered'
+        initializeModule(module)
       module.exports
     else
       throw new r.MissingModuleException(moduleName)
@@ -20,7 +25,7 @@ unless window.require?
     r.cache[moduleName] = {
       name: moduleName,
       initializer: initializer,
-      initialized: false,
+      state: 'registered',
       exports: null
     }
 
