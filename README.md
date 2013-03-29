@@ -66,8 +66,8 @@ When true, add the require() method code at the beginning of each generated file
 Type: `String`
 Default value: `"CommonJS"`
 
-* When 'CommonJS', wraps each file in a "window.require.register(...)" block.
-* When 'Function', wraps each file in a "(function () { ... })()"
+* When `"CommonJS"`, wraps each file in a `"window.require.register(...)"` block.
+* When `"Function"`, wraps each file in a `"(function () { ... })()"`
 * When null or false it doesn't wrap.
 
 ### Usage Examples
