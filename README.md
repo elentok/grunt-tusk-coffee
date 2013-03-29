@@ -1,8 +1,12 @@
-# grunt-tusk-coffee
+grunt-tusk-coffee
+==================
 
-> Compiles coffee script into commonjs modules and joins them to a single file
+> Compiles and concatenates coffee script files
 
-## Getting Started
+> Can wrap each file in a CommonJS module or function
+
+Getting Started
+------------------
 _If you haven't used [grunt][] before, be sure to check out the [Getting Started][] guide._
 
 From the same directory as your project's [Gruntfile][Getting Started] and [package.json][], install this plugin with the following command:
@@ -23,14 +27,15 @@ If the plugin has been installed correctly, running `grunt --help` at the comman
 [Getting Started]: https://github.com/gruntjs/grunt/blob/devel/docs/getting_started.md
 [package.json]: https://npmjs.org/doc/json.html
 
-## The "commoncoffee" task
+The "tusk_coffee" task
+----------------------
 
 ### Overview
-In your project's Gruntfile, add a section named `commoncoffee` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add a section named `tusk_coffee` to the data object passed into `grunt.initConfig()`.
 
 ```coffeescript
 grunt.initConfig
-  commoncoffee:
+  tusk_coffee:
     your_target:
       options:
         # Task-specific options go here.
@@ -58,10 +63,12 @@ Default value: `true`
 When true, add the require() method code at the beginning of each generated file.
 
 #### options.wrap
-Type: `Boolean`
-Default value: `true`
+Type: `String`
+Default value: `"CommonJS"`
 
-When true, wraps each file in a "window.require.register(...)" block.
+* When 'CommonJS', wraps each file in a "window.require.register(...)" block.
+* When 'Function', wraps each file in a "(function () { ... })()"
+* When null or false it doesn't wrap.
 
 ### Usage Examples
 
@@ -72,7 +79,7 @@ This is the way I use this plugin, the following configuration will generate two
 
 ```coffeescript
 grunt.initConfig
-  commoncoffee:
+  tusk_coffee:
     app:
       options:
         root: 'src'
@@ -81,7 +88,7 @@ grunt.initConfig
 
     vendor:
       options:
-        wrap: false
+        wrap: null
         runtime: false
       files:
         'public/vendor.js': [
