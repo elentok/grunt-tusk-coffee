@@ -67,7 +67,7 @@ Type: `String`
 Default value: `"CommonJS"`
 
 * When `"CommonJS"`, wraps each file in a `"window.require.register(...)"` block.
-* When `"Function"`, wraps each file in a `"(function () { ... })()"`
+* When `"Function"`, wraps each file in a `"(function () { ... })()"` block.
 * When null or false it doesn't wrap.
 
 ### Usage Examples
