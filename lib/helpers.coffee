@@ -1,9 +1,13 @@
 path = require 'path'
 
 module.exports =
-  wrap: (moduleName, source) ->
+  wrapCommonJS: (moduleName, source) ->
     "window.require.register('#{moduleName}', function(require, module) {\n" +
       source + "\n});"
+
+  wrapInFunction: (source) ->
+    "(function() {\n" +
+      source + "\n})();"
 
   getModuleName: (fullpath, root) ->
     root = "#{root}/" unless /\/$/.test(root)

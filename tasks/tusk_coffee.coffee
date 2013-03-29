@@ -18,7 +18,6 @@ module.exports = (grunt) ->
 
 class TuskCoffeeCompiler
   constructor: (@grunt, @fileGroups, @options) ->
-    console.log "CommonCompiler"
     @_addDefaultOptions()
 
   _addDefaultOptions: ->
@@ -26,7 +25,7 @@ class TuskCoffeeCompiler
       separator: @grunt.util.linefeed + @grunt.util.linefeed,
       root: '.',
       runtime: true
-      wrap: true
+      wrap: 'CommonJS'
     })
     @options.root = path.resolve(@options.root)
 
@@ -61,7 +60,8 @@ class TuskCoffeeCompiler
     source = files.map (filepath) => @_compileFile(filepath)
     source = source.join(@options.separator)
 
-    source = @_getRequireRuntime() + source if @options.runtime
+    if @options.runtime and @options.wrap == 'CommonJS'
+      source = @_getRequireRuntime() + source
     source += @grunt.util.linefeed
 
     @grunt.file.write(dest, source)
@@ -70,11 +70,18 @@ class TuskCoffeeCompiler
   _compileFile: (filepath) ->
     return '' unless @_fileExists(filepath)
 
-    fullpath = path.resolve(filepath)
-    moduleName = helpers.getModuleName(fullpath, @options.root)
     source = compile(filepath)
-    source = helpers.wrap(moduleName, source) if @options.wrap
-    source
+    @_wrap(filepath, source)
+
+  _wrap: (filepath, source) ->
+    if @options.wrap == 'CommonJS'
+      fullpath = path.resolve(filepath)
+      moduleName = helpers.getModuleName(fullpath, @options.root)
+      helpers.wrapCommonJS(moduleName, source)
+    else if @options.wrap == 'Function'
+      helpers.wrapInFunction(source)
+    else
+      source
 
   _getRequireRuntime: (source) ->
     require_runtime_path =

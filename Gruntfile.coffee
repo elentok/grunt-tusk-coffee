@@ -53,6 +53,14 @@ module.exports = (grunt) ->
         files:
           'tmp/scenario4/': ['test/fixtures/**/*.coffee']
 
+      scenario5: #wrap in function
+        options:
+          root: 'test/fixtures'
+          runtime: false
+          wrap: 'Function'
+        files:
+          'tmp/scenario5.js': ['test/fixtures/**/*.coffee']
+
     simplemocha:
       all: ['test/**/*_test.coffee']
       options:

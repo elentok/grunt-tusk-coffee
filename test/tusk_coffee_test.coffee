@@ -29,3 +29,9 @@ describe "tusk_coffee task", ->
     file2 = grunt.file.read('tmp/scenario4/file2.js')
     expect(file1).to.equal "var x;\n\nx = 1;\n"
     expect(file2).to.equal "var y;\n\ny = 2;\n"
+
+  it "should pass scenario5 (wrap = 'Function')", ->
+    expected = grunt.file.read('test/expected/scenario5.js')
+    actual = grunt.file.read('tmp/scenario5.js')
+    expect(actual).to.equal(expected)
+
