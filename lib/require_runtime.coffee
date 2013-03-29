@@ -28,6 +28,7 @@ unless window.require?
   class r.MissingModuleException
     constructor: (@moduleName) ->
       @message = "Cannot find module '#{@moduleName}'"
+      console?.error(@message)
 
   # make it a real javascript error
   r.MissingModuleException.prototype = new Error()
@@ -35,8 +36,9 @@ unless window.require?
 
   class r.ModuleInitializerException
     constructor: (@moduleName, @innerException) ->
-    @message = "Error initializing module '#{@moduleName}': " +
-      @innerException
+      @message = "Error initializing module '#{@moduleName}': " +
+        @innerException
+      console?.error(@message)
 
   # make it a real javascript error
   r.ModuleInitializerException.prototype = new Error()
