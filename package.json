@@ -1,7 +1,7 @@
 {
   "name": "grunt-tusk-coffee",
   "description": "Compiles coffee script into commonjs modules and joins them to a single file",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://github.com/elentok/grunt-tusk-coffee",
   "author": {
     "name": "David Elentok",
