@@ -23,11 +23,11 @@ class TuskCoffeeCompiler
   _addDefaultOptions: ->
     @options = @options({
       separator: @grunt.util.linefeed + @grunt.util.linefeed,
-      root: '.',
-      runtime: true
+      modulesRoot: '.',
+      runtime: false
       wrap: 'CommonJS'
     })
-    @options.root = path.resolve(@options.root)
+    @options.modulesRoot = path.resolve(@options.modulesRoot)
 
   compile: ->
     @fileGroups.forEach (fileGroup) =>
@@ -76,7 +76,7 @@ class TuskCoffeeCompiler
   _wrap: (filepath, source) ->
     if @options.wrap == 'CommonJS'
       fullpath = path.resolve(filepath)
-      moduleName = helpers.getModuleName(fullpath, @options.root)
+      moduleName = helpers.getModuleName(fullpath, @options.modulesRoot)
       helpers.wrapCommonJS(moduleName, source)
     else if @options.wrap == 'Function'
       helpers.wrapInFunction(source)

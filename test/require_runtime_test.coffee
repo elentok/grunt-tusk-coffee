@@ -46,7 +46,7 @@ describe "require-runtime", ->
 
             fn = => @r('my_module')
             expect(fn).to.throw @r.ModuleInitializerException,
-              /Error initializing module 'my_module': Error: 'bla'/
+              "Error initializing module 'my_module': Error: bla"
 
         describe "when initializer run successfuly", ->
           it "returns the value of module.exports", ->

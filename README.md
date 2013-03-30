@@ -45,7 +45,15 @@ grunt.initConfig
 
 ### Options
 
-#### options.root
+#### options.wrap
+Type: `String`
+Default value: `"CommonJS"`
+
+* When `"CommonJS"`, wraps each file in a `"window.require.register(...)"` block.
+* When `"Function"`, wraps each file in a `"(function () { ... })()"` block.
+* When null or false it doesn't wrap.
+
+#### options.modulesRoot
 Type: `String`
 Default value: `'.'`
 
@@ -54,21 +62,13 @@ The root of the module files.
 For example, by default, to load the file "src/files/file1.coffee" in the 
 browser you will run "`require 'src/files/file1'`".
 
-If you set `root` to `src/files` you can use "`require 'file1'`"
+If you set `modulesRoot` to `src/files` you can use "`require 'file1'`"
 
 #### options.runtime
 Type: `Boolean`
-Default value: `true`
+Default value: `false`
 
 When true, add the require() method code at the beginning of each generated file.
-
-#### options.wrap
-Type: `String`
-Default value: `"CommonJS"`
-
-* When `"CommonJS"`, wraps each file in a `"window.require.register(...)"` block.
-* When `"Function"`, wraps each file in a `"(function () { ... })()"` block.
-* When null or false it doesn't wrap.
 
 ### Usage Examples
 
@@ -82,7 +82,7 @@ grunt.initConfig
   tusk_coffee:
     app:
       options:
-        root: 'src'
+        modulesRoot: 'src'
       files:
         'public/app.js': ['src/**/*.coffee'],
 

@@ -25,37 +25,35 @@ module.exports = (grunt) ->
     tusk_coffee:
       scenario1:
         options:
-          root: 'test'
+          modulesRoot: 'test'
+          runtime: true
         files:
           'tmp/scenario1.js': ['test/fixtures/**/*.coffee']
 
       scenario2: #don't add the 'require' method code
         options:
-          root: 'test/fixtures'
-          runtime: false
+          modulesRoot: 'test/fixtures'
         files:
           'tmp/scenario2.js': ['test/fixtures/**/*.coffee']
 
       scenario3: #useful for vendor files
         options:
-          root: 'test/fixtures'
-          runtime: false
+          modulesRoot: 'test/fixtures'
           wrap: false
         files:
           'tmp/scenario3.js': ['test/fixtures/**/*.coffee']
 
       scenario4: #don't join files
         options:
-          root: 'test/fixtures'
+          modulesRoot: 'test/fixtures'
           join: false
-          runtime: false
           wrap: false
         files:
           'tmp/scenario4/': ['test/fixtures/**/*.coffee']
 
       scenario5: #wrap in function
         options:
-          root: 'test/fixtures'
+          modulesRoot: 'test/fixtures'
           runtime: false
           wrap: 'Function'
         files:
